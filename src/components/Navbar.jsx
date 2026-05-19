@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import React from "react";
-import { Avatar } from "@heroui/react";
+import { Avatar, Button } from "@heroui/react";
 
 const Navbar = () => {
   return (
@@ -29,7 +29,7 @@ const Navbar = () => {
                 font-black
                 tracking-[-1px]
                 leading-none
-                text-[#FFE088]
+                text-[#D4A843]
                 font-serif
               "
             >
@@ -54,7 +54,7 @@ const Navbar = () => {
                 relative
                 text-md
                 font-semibold
-                text-[#E9C349]
+                text-[#D4A843]
               "
             >
               Home
@@ -66,7 +66,7 @@ const Navbar = () => {
                   -bottom-1
                   h-[1.5px]
                   w-full
-                  bg-[#E9C349]
+                  bg-[#D4A843]
                 "
               ></span>
             </Link>
@@ -124,53 +124,32 @@ const Navbar = () => {
           <Link
             href="/profile"
             className="
-              hidden
               sm:flex
               items-center
               justify-center
             "
           >
-            <Avatar
-              icon={
-                <svg
-                  aria-hidden="true"
-                  fill="none"
-                  focusable="false"
-                  height="18"
-                  role="presentation"
-                  viewBox="0 0 24 24"
-                  width="18"
-                >
-                  <path
-                    d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5z"
-                    fill="currentColor"
-                  />
-                </svg>
-              }
-              className="
-                bg-transparent
-                text-black
-                w-8
-                h-8
-              "
-            />
+            <Avatar>
+        <Avatar.Image alt="John Doe" src="https://img.heroui.chat/image/avatar?w=400&h=400&u=3" />
+        <Avatar.Fallback>JD</Avatar.Fallback>
+      </Avatar>
           </Link>
 
           {/* Login Button */}
-          <Link
-            href="/login"
-            className="
-              bg-[#E9C349]
-              text-black
-              text-md
-              font-semibold
-              px-7
-              py-3
-              hover:bg-orange-400
-              transition
-            "
-          >
-            Login
+
+          <Link href="/login">
+          <Button
+                        radius="none"
+                        className="group relative h-[40px] overflow-hidden border border-[#D4A843] bg-transparent px-8 text-md font-semibold uppercase tracking-[2px] text-[#D4A843] transition-all duration-500 hover:text-black"
+                      >
+                        {/* Hover Background */}
+                        <span className="absolute inset-0 origin-left scale-x-0 bg-[#D4A843] transition-transform duration-500 group-hover:scale-x-100"></span>
+          
+                        {/* Text */}
+                        <span className="relative z-10">
+                          Login
+                        </span>
+                      </Button>
           </Link>
         </div>
       </nav>
