@@ -7,7 +7,7 @@ import { FaStar } from "react-icons/fa";
 
 export default function Banner() {
   return (
-    <section className="relative h-screen min-h-[90vh] w-full overflow-hidden bg-black">
+    <section className="relative h-screen min-h-[90vh] w-full overflow-hidden bg-black mb-12">
       {/* Background Image */}
       <Image
         src={'/assets/hero.jpg'}
