@@ -2,6 +2,7 @@
 
 import { Button } from "@heroui/react";
 import Image from "next/image";
+import Link from "next/link";
 import {
     FaChair,
     FaCog,
@@ -76,6 +77,7 @@ const CarCard = ({ car }) => {
                 </div>
 
                 {/* BUTTON */}
+                <Link href={`/explore-cars/${car._id}`}>
                 <Button
                     radius="none"
                     disabled={!car.available}
@@ -93,6 +95,7 @@ const CarCard = ({ car }) => {
                         Details
                     </span>
                 </Button>
+                </Link>
 
             </div>
         </div>
