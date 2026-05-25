@@ -5,6 +5,7 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import { Avatar, Button } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -14,6 +15,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     await authClient.signOut();
+    toast.error("You are successfully logged Out")
   };
 
   const isActive = (path) => pathname === path;
@@ -96,7 +98,7 @@ const Navbar = () => {
                 {/* Avatar */}
                 <Link href="/profile" className="block">
                   <Avatar>
-                    <Avatar.Image
+                    <Avatar.Image referrerPolicy="no-referrer"
                       alt={user?.name || "User"}
                       src={user?.image || ""}
                     />

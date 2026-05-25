@@ -1,9 +1,12 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
+import { Button } from "@heroui/react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import React, { useState } from "react";
 import { FaUser, FaEnvelope, FaLock, FaImage } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import { IoCreate } from "react-icons/io5";
 import { toast } from "react-toastify";
 
@@ -34,6 +37,14 @@ const RegisterPage = () => {
       setError(error.message || "Something went wrong");
     }
   };
+
+  // google sign in 
+  const handleGoogleSignIn = async()=> {
+    await authClient.signIn.social({
+      provider: "google",
+    })
+    toast.success("You are logged in successfully")
+  }
 
   return (
     <div className="bg-[#0f1324] min-h-screen flex items-center justify-center px-4 py-8">
@@ -124,8 +135,27 @@ const RegisterPage = () => {
             <IoCreate className="text-lg" />
             Create Account
           </button>
-
         </form>
+
+        {/* Divider Text */}
+      <p className="text-center text-sm text-white/60 my-4">
+        Or continue with
+      </p>
+
+      {/* Google Button */}
+      <Button onClick={handleGoogleSignIn}
+        radius="none"
+        className="w-full flex items-center justify-center gap-2 border border-[#D4A843] bg-transparent text-[#D4A843] font-semibold hover:bg-[#D4A843] hover:text-black transition-all"
+      >
+        <FcGoogle className="text-xl" />
+        Continue with Google
+      </Button>
+          <div className="text-center mt-5 flex items-center gap-3 justify-center">
+            <p>Already have an account?</p>
+            <Link href="/login" className="text-[#D4A843] underline">
+              Login
+            </Link>
+          </div>
       </div>
     </div>
   );
