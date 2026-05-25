@@ -17,8 +17,8 @@ const CarCard = ({ car }) => {
             <div className="relative h-[200px] w-full">
 
                 <Image
-                    src={car.image}
-                    alt={car.carName}
+                    src={car.image || "/fallback-car.jpg"}
+                    alt={car.carName || "Car"}
                     loading="eager"
                     sizes="360px"
                     fill
@@ -78,23 +78,23 @@ const CarCard = ({ car }) => {
 
                 {/* BUTTON */}
                 <Link href={`/explore-cars/${car._id}`}>
-                <Button
-                    radius="none"
-                    disabled={!car.available}
-                    className={`group relative w-full mt-8 h-[40px] overflow-hidden border border-[#D4A843]
+                    <Button
+                        radius="none"
+                        disabled={!car.available}
+                        className={`group relative w-full mt-8 h-[40px] overflow-hidden border border-[#D4A843]
                 px-8 text-md font-semibold uppercase tracking-[2px] transition-all duration-500
                 ${car.available ? "text-[#D4A843] bg-transparent hover:text-black" : "bg-gray-300 text-gray-500 cursor-not-allowed"}`}
-                                >
-                    {/* Hover background */}
-                    {car.available && (
-                        <span className="absolute inset-0 origin-left scale-x-0 bg-[#D4A843] transition-transform duration-500 group-hover:scale-x-100" />
-                    )}
+                    >
+                        {/* Hover background */}
+                        {car.available && (
+                            <span className="absolute inset-0 origin-left scale-x-0 bg-[#D4A843] transition-transform duration-500 group-hover:scale-x-100" />
+                        )}
 
-                    {/* Text */}
-                    <span className="relative z-10">
-                        Details
-                    </span>
-                </Button>
+                        {/* Text */}
+                        <span className="relative z-10">
+                            Details
+                        </span>
+                    </Button>
                 </Link>
 
             </div>

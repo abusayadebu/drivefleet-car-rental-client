@@ -1,36 +1,57 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import { toast } from "react-toastify";
 
 const AddCarPage = () => {
-  const handleSubmit = async(e) => {
-    e.preventDefault();
+  // get user 
+  const { data: session } = authClient.useSession(); 
+  const user = session?.user;
 
-    const formData = new FormData(e.currentTarget);
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const car = Object.fromEntries(formData.entries());
+  const formData = new FormData(e.currentTarget);
+  const car = Object.fromEntries(formData.entries());
 
-    // checkbox boolean value
-    car.available = formData.has("available");
+  car.available = formData.has("available");
 
-    console.log(car);
+  const carData = {
+  userId: user?.id,
+  userImage: user?.image,
+  userName: user?.name,
 
-    // fetch data
-    const res = await fetch('http://localhost:8000/add-car', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(car)
-    })
-    const data = await res.json()
-    console.log(data);
-    toast.success("Car Added Successfully")
+  carName: car.carName,
+  carType: car.carType,
 
-    // optional reset
-    // e.target.reset();
-  };
+  image: car.image,        
+  location: car.location, 
+  price: Number(car.price), 
+
+  seats: Number(car.seats),
+  description: car.description,
+  available: car.available,
+};
+
+  console.log("Sending:", carData);
+
+  const res = await fetch("http://localhost:8000/add-car", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(carData),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    toast.error(data?.message || "Failed to add car");
+    return;
+  }
+
+  toast.success("Car Added Successfully");
+  console.log("Response:", data);
+};
 
   return (
     <div className="bg-[#0f1324]">

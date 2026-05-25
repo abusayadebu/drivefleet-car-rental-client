@@ -1,9 +1,7 @@
 
-
 import BookingModal from "@/components/BookingModal";
-import { Button } from "@heroui/react";
 import Image from "next/image";
-import Link from "next/link";
+
 import {
     FiMapPin,
     FiUsers,
