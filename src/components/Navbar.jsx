@@ -151,6 +151,22 @@ const Navbar = () => {
                         </span>
                       </Button>
           </Link>
+
+          {/* register button */}
+          <Link href="/register">
+          <Button
+                        radius="none"
+                        className="group relative h-[40px] overflow-hidden border border-[#D4A843] bg-transparent px-8 text-md font-semibold uppercase tracking-[2px] text-[#D4A843] transition-all duration-500 hover:text-black"
+                      >
+                        {/* Hover Background */}
+                        <span className="absolute inset-0 origin-left scale-x-0 bg-[#D4A843] transition-transform duration-500 group-hover:scale-x-100"></span>
+          
+                        {/* Text */}
+                        <span className="relative z-10">
+                          Register
+                        </span>
+                      </Button>
+          </Link>
         </div>
       </nav>
     </header>
