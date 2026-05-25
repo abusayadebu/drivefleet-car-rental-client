@@ -1,21 +1,51 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { Button, Modal } from "@heroui/react";
+import { redirect } from "next/navigation";
 import { FiCalendar, FiShield } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 const BookingModal = ({ car }) => {
+    // get user
+     const { data: session } = authClient.useSession();
+      const user = session?.user;
 
-    const handleBooking = (e) => {
+    const handleBooking = async(e) => {
         e.preventDefault();
-
         const formData = new FormData(e.target);
 
-        const bookingData = Object.fromEntries(
-            formData.entries()
-        );
+    const { driverNeeded, specialRequest } =
+        Object.fromEntries(formData.entries());
 
-        console.log(bookingData);
-    };
+        const bookingData = {
+            userId: user?.id,
+            userImage: user?.image,
+            userName: user?.name,
+            carId: car?._id,
+            carType: car?.carType,
+            carName: car?.carName,
+            carLocation: car?.location,
+            carPrice: car?.price,
+            available: car?.available,
+
+            driverNeeded,
+            specialRequest,
+        }
+        
+        const res = await fetch('http://localhost:8000/booking', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(bookingData)
+        })
+
+        const data = await res.json();
+        toast.success("Congrats, your booking successful")
+        console.log(data);
+        redirect('/explore-cars')
+    }
 
     return (
         <Modal>
