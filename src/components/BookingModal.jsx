@@ -15,7 +15,7 @@ const BookingModal = ({ car }) => {
         e.preventDefault();
         const formData = new FormData(e.target);
 
-    const { driverNeeded, specialRequest } =
+    const { bookingDate, driverNeeded, specialRequest } =
         Object.fromEntries(formData.entries());
 
         const bookingData = {
@@ -25,10 +25,12 @@ const BookingModal = ({ car }) => {
             carId: car?._id,
             carType: car?.carType,
             carName: car?.carName,
+            carImage: car?.image,
             carLocation: car?.location,
             carPrice: car?.price,
             available: car?.available,
 
+            bookingDate,
             driverNeeded,
             specialRequest,
         }
@@ -85,6 +87,19 @@ const BookingModal = ({ car }) => {
                         <Modal.Body className="py-6">
                             {/* FORM */}
                             <form onSubmit={handleBooking} className="space-y-5">
+
+                                {/* Booking Date */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-white mb-2">
+                                        Booking Date
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        name="bookingDate"
+                                        className="w-full bg-transparent border border-[#3a4268] text-gray-100 rounded-xl px-4 py-3 outline-none focus:border-[#D4A843]"
+                                    />
+                                </div>
 
                                 {/* Driver Needed */}
                                 <div>
