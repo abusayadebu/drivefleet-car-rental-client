@@ -2,6 +2,7 @@ import Image from "next/image";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { FiDelete } from "react-icons/fi";
 import { GrUpdate } from "react-icons/gr";
+import CarDeleteAlert from "./CarDeleteAlert";
 
 const MyCarsCard = ({ myCar }) => {
   return (
@@ -118,10 +119,7 @@ const MyCarsCard = ({ myCar }) => {
              <GrUpdate></GrUpdate> Update
             </button>
 
-            <button className="h-[40px] rounded-xl border border-red-400 bg-red-500 px-2 text-sm font-semibold uppercase tracking-wider text-white transition-all duration-300 hover:text-[#141A32] flex justify-center items-center gap-2 cursor-pointer">
-             <FiDelete></FiDelete> Delete
-            </button>
-
+            <CarDeleteAlert myCarId={myCar._id}></CarDeleteAlert>
           </div>
 
         </div>
