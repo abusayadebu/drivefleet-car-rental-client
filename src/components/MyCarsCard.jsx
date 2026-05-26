@@ -1,7 +1,4 @@
 import Image from "next/image";
-import { FaDeleteLeft } from "react-icons/fa6";
-import { FiDelete } from "react-icons/fi";
-import { GrUpdate } from "react-icons/gr";
 import CarDeleteAlert from "./CarDeleteAlert";
 import MyCarEditModal from "./MyCarEditModal";
 

@@ -8,15 +8,15 @@ import { toast } from "react-toastify";
 
 const BookingModal = ({ car }) => {
     // get user
-     const { data: session } = authClient.useSession();
-      const user = session?.user;
+    const { data: session } = authClient.useSession();
+    const user = session?.user;
 
-    const handleBooking = async(e) => {
+    const handleBooking = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
 
-    const { bookingDate, driverNeeded, specialRequest } =
-        Object.fromEntries(formData.entries());
+        const { bookingDate, driverNeeded, specialRequest } =
+            Object.fromEntries(formData.entries());
 
         const bookingData = {
             userId: user?.id,
@@ -34,11 +34,16 @@ const BookingModal = ({ car }) => {
             driverNeeded,
             specialRequest,
         }
-        
+
+        // token jws
+        const { data: tokenData } = await authClient.token()
+        console.log(tokenData);
+
         const res = await fetch('http://localhost:8000/booking', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${tokenData?.token}`
             },
             body: JSON.stringify(bookingData)
         })
@@ -46,7 +51,7 @@ const BookingModal = ({ car }) => {
         const data = await res.json();
         toast.success("Congrats, your booking successful")
         console.log(data);
-        redirect('/explore-cars')
+        redirect('/my-bookings')
     }
 
     return (
@@ -164,7 +169,7 @@ const BookingModal = ({ car }) => {
                                 </div>
                             </form>
 
-                        
+
                         </Modal.Body>
                     </Modal.Dialog>
                 </Modal.Container>

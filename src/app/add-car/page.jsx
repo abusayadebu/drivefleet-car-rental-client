@@ -34,11 +34,16 @@ const AddCarPage = () => {
   available: car.available,
 };
 
-  console.log("Sending:", carData);
+  // token jws
+  const {data: tokenData} = await authClient.token()
+  console.log(tokenData);
 
   const res = await fetch("http://localhost:8000/add-car", {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: { 
+      "content-type": "application/json",
+      authorization: `Bearer ${tokenData?.token}`
+    },
     body: JSON.stringify(carData),
   });
 

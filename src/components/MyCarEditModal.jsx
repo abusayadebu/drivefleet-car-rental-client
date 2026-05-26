@@ -1,36 +1,43 @@
 "use client";
 
+import { authClient } from '@/lib/auth-client';
 import { Button, Modal } from '@heroui/react';
 import React from 'react';
 import { GrUpdate } from 'react-icons/gr';
 import { toast } from 'react-toastify';
 
-const MyCarEditModal = ({myCar}) => {
-    const {_id, carName, carType, image, location, description, available, price, seats} = myCar;
+const MyCarEditModal = ({ myCar }) => {
+    const { _id, carName, carType, image, location, description, available, price, seats } = myCar;
 
-     const handleSubmit = async (e) => {
-      e.preventDefault();
-    
-      const formData = new FormData(e.currentTarget);
-      const myCar = Object.fromEntries(formData.entries());
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
+        const formData = new FormData(e.currentTarget);
+        const myCar = Object.fromEntries(formData.entries());
 
-      const res = await fetch(`http://localhost:8000/add-car/${_id}`, {
-        method: "PATCH",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(myCar),
-      });
-    
-      const data = await res.json();
-    
-      if (!res.ok) {
-        toast.error(data?.message || "Failed to add car");
-        return;
-      }
-    
-      toast.success("Car Added Successfully");
-      window.location.reload();
-    //   console.log("Response:", data);
+        // token jws
+        const { data: tokenData } = await authClient.token()
+        console.log(tokenData);
+
+        const res = await fetch(`http://localhost:8000/add-car/${_id}`, {
+            method: "PATCH",
+            headers: { 
+                "content-type": "application/json",
+                authorization: `Bearer ${tokenData?.token}`
+            },
+            body: JSON.stringify(myCar),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            toast.error(data?.message || "Failed to add car");
+            return;
+        }
+
+        toast.success("Car Added Successfully");
+        window.location.reload();
+        //   console.log("Response:", data);
     };
 
 
@@ -38,7 +45,7 @@ const MyCarEditModal = ({myCar}) => {
         <Modal>
             {/* OPEN BUTTON */}
             <Button className="h-[40px] rounded-xl bg-[#141A32] px-4 text-sm font-semibold uppercase tracking-wider text-white transition-all duration-300 hover:opacity-90 flex justify-center items-center gap-2 cursor-pointer">
-             <GrUpdate></GrUpdate> Edit
+                <GrUpdate></GrUpdate> Edit
             </Button>
 
             {/* MODAL */}
@@ -165,7 +172,7 @@ const MyCarEditModal = ({myCar}) => {
                                     type="submit"
                                     className="w-full flex items-center justify-center gap-2 bg-[#D4A843] text-black font-semibold py-3 rounded-xl hover:opacity-90 transition"
                                 >
-                                 <GrUpdate></GrUpdate> Update
+                                    <GrUpdate></GrUpdate> Update
                                 </button>
 
                             </form>

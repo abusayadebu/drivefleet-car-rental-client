@@ -1,5 +1,7 @@
 
 import BookingModal from "@/components/BookingModal";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
 
 import {
@@ -14,7 +16,17 @@ import {
 const CarDetailsPage = async ({ params }) => {
     const { id } = await params;
 
-    const res = await fetch(`http://localhost:8000/explore-cars/${id}`)
+    // json token
+    const {token} = await auth.api.getToken({
+        headers: await headers()
+    })
+    // console.log(token);
+
+    const res = await fetch(`http://localhost:8000/explore-cars/${id}`, {
+        headers: {
+        authorization: `Bearer ${token}`
+    }
+    })
     const car = await res.json()
     console.log(car);
     return (

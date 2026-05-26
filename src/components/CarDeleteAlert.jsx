@@ -1,20 +1,26 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { AlertDialog, Button } from "@heroui/react";
 import { FiDelete } from "react-icons/fi";
 
-const CarDeleteAlert = ({myCarId}) => {
-    const handleDeleteCar = async()=>{
-        const res = await fetch(`http://localhost:8000/add-car/${myCarId}`, {
-            method: 'DELETE',
-            headers: {
-                'content-type': 'application/json'
-            }
-        })
+const CarDeleteAlert = ({ myCarId }) => {
+  const handleDeleteCar = async () => {
 
-        const data = await res.json()
-        window.location.reload();
-    }
+    // token jws
+    const { data: tokenData } = await authClient.token()
+    console.log(tokenData);
+    const res = await fetch(`http://localhost:8000/add-car/${myCarId}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Bearer ${tokenData?.token}`
+      }
+    })
+
+    const data = await res.json()
+    window.location.reload();
+  }
   return (
     <AlertDialog>
       {/* TRIGGER BUTTON */}
