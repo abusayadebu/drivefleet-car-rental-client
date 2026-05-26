@@ -3,6 +3,7 @@ import { FaDeleteLeft } from "react-icons/fa6";
 import { FiDelete } from "react-icons/fi";
 import { GrUpdate } from "react-icons/gr";
 import CarDeleteAlert from "./CarDeleteAlert";
+import MyCarEditModal from "./MyCarEditModal";
 
 const MyCarsCard = ({ myCar }) => {
   return (
@@ -114,11 +115,7 @@ const MyCarsCard = ({ myCar }) => {
 
           {/* BUTTONS */}
           <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-
-            <button className="h-[40px] rounded-xl bg-[#141A32] px-2 text-sm font-semibold uppercase tracking-wider text-white transition-all duration-300 hover:opacity-90 flex justify-center items-center gap-2 cursor-pointer">
-             <GrUpdate></GrUpdate> Update
-            </button>
-
+            <MyCarEditModal myCar={myCar}></MyCarEditModal>
             <CarDeleteAlert myCarId={myCar._id}></CarDeleteAlert>
           </div>
 

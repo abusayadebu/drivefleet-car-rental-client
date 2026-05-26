@@ -10,7 +10,7 @@ const MyAddedCarsPage = async () => {
     const user = session?.user;
     const res = await fetch(`http://localhost:8000/add-car/${user?.id}`)
     const myCars = await res.json();
-    console.log(myCars);
+    // console.log(myCars);
 
     return (
         <div className='bg-[#0f1324] py-8'>
