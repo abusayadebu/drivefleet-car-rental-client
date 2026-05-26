@@ -21,18 +21,8 @@ const ExploreCarPage = async ({ searchParams }) => {
     query.append("type", type);
   }
 
-  // json token
-  const { token } = await auth.api.getToken({
-    headers: await headers()
-  })
-  const res = await fetch(`http://localhost:8000/explore-cars?${query.toString()}`, {
-    headers: {
-      authorization: `Bearer ${token}`
-    },
-
-    cache: "no-store"
-
-  })
+  const res = await fetch(`http://localhost:8000/explore-cars?${query.toString()}`)
+   
   const cars = await res.json();
   // console.log(cars);
   

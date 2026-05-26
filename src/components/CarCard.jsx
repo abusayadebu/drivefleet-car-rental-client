@@ -3,11 +3,13 @@
 import { Button } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
+import { BiBook } from "react-icons/bi";
 import {
     FaChair,
     FaCog,
     FaMapMarkerAlt,
 } from "react-icons/fa";
+import { TbBrandBooking } from "react-icons/tb";
 
 const CarCard = ({ car }) => {
     return (
@@ -54,6 +56,7 @@ const CarCard = ({ car }) => {
                         </h3>
                         <p className="text-xs text-gray-400">/ Day</p>
                     </div>
+
                 </div>
 
                 {/* FEATURES */}
@@ -62,6 +65,16 @@ const CarCard = ({ car }) => {
                     <div className="flex items-center gap-1">
                         <FaChair />
                         <span>{car.seats} Seats</span>
+                    </div>
+
+                    <div className="flex items-center gap-1">
+                        <span className="text-sm text-gray-500 flex gsp-3 items-center">
+                           <TbBrandBooking></TbBrandBooking> Booked:
+                        </span>
+
+                        <span>
+                            {car?.booking_count || 0}
+                        </span>
                     </div>
 
                     <div className="flex items-center gap-1">
