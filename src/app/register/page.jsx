@@ -29,8 +29,8 @@ const RegisterPage = () => {
 
     if (data) {
       toast.success("Registration successful");
-
-      redirect("/");
+      await authClient.signOut();
+      redirect("/login");
     }
 
     if (error) {
