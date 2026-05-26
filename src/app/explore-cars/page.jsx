@@ -1,21 +1,41 @@
 import CarCard from '@/components/CarCard';
+import SearchFilter from '@/components/SearchFilter';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 import React from 'react';
 
-const ExploreCarPage = async () => {
+const ExploreCarPage = async ({ searchParams }) => {
+  const params = await searchParams;
+
+  const search = params?.search || "";
+  const type = params?.type || "";
+
+  // build query
+  const query = new URLSearchParams();
+
+  if (search) {
+    query.append("search", search);
+  }
+
+  if (type) {
+    query.append("type", type);
+  }
 
   // json token
   const { token } = await auth.api.getToken({
     headers: await headers()
   })
-  const res = await fetch('http://localhost:8000/explore-cars',{
+  const res = await fetch(`http://localhost:8000/explore-cars?${query.toString()}`, {
     headers: {
       authorization: `Bearer ${token}`
-    }
+    },
+
+    cache: "no-store"
+
   })
   const cars = await res.json();
-  console.log(cars);
+  // console.log(cars);
+  
   return (
     <div className="min-h-screen bg-[#0f1324]">
 
@@ -28,6 +48,8 @@ const ExploreCarPage = async () => {
           Find the perfect car for your next journey
         </p>
       </div>
+
+      <SearchFilter></SearchFilter>
 
       {/* GRID WRAPPER */}
       <div className="max-w-7xl mx-auto px-4 py-10">
